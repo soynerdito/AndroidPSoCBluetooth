@@ -5,8 +5,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import android.bluetooth.BluetoothSocket;
-import android.os.Handler;
-import android.os.Message;
 
 public class ConnectedThread extends Thread {
     private final BluetoothSocket mmSocket;
@@ -60,14 +58,15 @@ public class ConnectedThread extends Thread {
                 // Read from the InputStream            	
                 bytes = mmInStream.read(buffer);
                 // Send the obtained bytes to the UI activity
-                //mhandler.obtainMessage( MESSAGE_READ, bytes, -1, buffer).sendToTarget();
                 mhandler.onDataReceived(bytes, buffer);                
                 mySleep(2000);
             } catch (IOException e) {
                 break;
             }
         }
-        mhandler.onDisconnect();
+        if( mhandler!=null ){
+        	mhandler.onDisconnect();	
+        }        
     }
  
     /* Call this from the main activity to send data to the remote device */

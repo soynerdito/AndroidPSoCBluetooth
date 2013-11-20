@@ -3,7 +3,7 @@
 
     <string name="app_name">PSoCBluetooth</string>
     <string name="action_settings">Settings</string>
-    <string name="status">Status</string>
+    <string name="status">Press Connect for bluettoth linvor</string>
     <string name="action">Action</string>
 
 </resources>

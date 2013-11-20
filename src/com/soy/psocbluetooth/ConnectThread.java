@@ -8,8 +8,8 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 
 class ConnectThread extends Thread {
-    private final BluetoothSocket mmSocket;
-    private final BluetoothDevice mmDevice;
+    private BluetoothSocket mmSocket;
+    private BluetoothDevice mmDevice;
     private SocketHandler mHandler;
     
     interface SocketHandler {
@@ -19,16 +19,16 @@ class ConnectThread extends Thread {
     public ConnectThread(BluetoothDevice device, String uuid, SocketHandler handler ) {
         // Use a temporary object that is later assigned to mmSocket,
         // because mmSocket is final
-        BluetoothSocket tmp = null;
+        //BluetoothSocket tmp = null;
         mmDevice = device;
         mHandler = handler;
- 
         // Get a BluetoothSocket to connect with the given BluetoothDevice
         try {
             // 
-            tmp = mmDevice.createRfcommSocketToServiceRecord(UUID.fromString(uuid));
-        } catch (IOException e) { }
-        mmSocket = tmp;
+        	mmSocket = mmDevice.createRfcommSocketToServiceRecord(UUID.fromString(uuid));
+        } catch (IOException e) {
+        	mmSocket = null;
+        }
     }
  
     public void run() {
